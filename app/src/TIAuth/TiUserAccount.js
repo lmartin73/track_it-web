@@ -26,7 +26,4 @@ function TiUserAccount (uid) {
 
 }
 
-me = new TiUserAccount(here)
-me.user  = "Luther"
-
 export default TiUserAccount

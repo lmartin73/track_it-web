@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link, Location } from 'react-router';
-import currentUser from '../../src/TIAuth/TIUserAccount'
+
 
 
 class Login extends Component {
@@ -25,7 +25,7 @@ class Login extends Component {
                         <div className="form-group">
                             <input type="password" className="form-control" placeholder="Password" required=""/>
                         </div>
-                        <button type="submit" className="btn btn-primary block full-width m-b" onClick={currentUser.loginUserAccount}>Login</button>
+                        <button type="submit" className="btn btn-primary block full-width m-b" >Login</button>
 
                         <Link to="/forgotpassword"><small>Forgot Password</small></Link>
                         <p className="text-muted text-center"><small>Do not have an account?</small></p>
