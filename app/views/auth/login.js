@@ -2,12 +2,27 @@
  * Created by luthermartin-pers on 1/2/17.
  */
 import React, { Component } from 'react';
-import { Link, Location } from 'react-router';
-
+import { Link, Location, browserHistory } from 'react-router';
+import currentUser from '../../src/staticDefs'
 
 
 class Login extends Component {
 
+    login(event){
+        event.preventDefault();
+
+        currentUser.loginAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
+            if(error == null){
+                // The user was successfully authenticated.
+                console.log(this.props)
+                this.props.history.push("/signup")
+            }else{
+                // There was an error authenticating the user
+                console.log(error)
+            }
+        });
+
+    }
     render() {
         return (
             <div className="middle-box text-center loginscreen animated fadeInDown">
@@ -18,12 +33,12 @@ class Login extends Component {
                     <h3> Welcome to TrackIt</h3>
                     <p>Manage and track all of your inventory within your company from the cloud.</p>
                     <p>Login to get started.</p>
-                    <form className="m-t" role="form" action="#">
+                    <form className="m-t" role="form" onSubmit={this.login.bind(this)}>
                         <div className="form-group">
-                            <input type="email" className="form-control" placeholder="Username" required=""/>
+                            <input type="email" ref="email" className="form-control" placeholder="Email" required=""/>
                         </div>
                         <div className="form-group">
-                            <input type="password" className="form-control" placeholder="Password" required=""/>
+                            <input type="password" ref="password" className="form-control" placeholder="Password" required=""/>
                         </div>
                         <button type="submit" className="btn btn-primary block full-width m-b" >Login</button>
 

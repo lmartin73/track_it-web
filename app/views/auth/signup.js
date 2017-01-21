@@ -3,8 +3,26 @@
  */
 import React, { Component } from 'react';
 import { Link, Location } from 'react-router';
+import currentUser from '../../src/staticDefs'
 
 class SignUp extends Component {
+
+    signUp(event){
+        event.preventDefault();
+
+        currentUser.createUserAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
+            if(error == null){
+                // The user was successfully authenticated.
+                console.log(user)
+                this.props.history.push("/signup")
+            }else{
+                // There was an error authenticating the user
+                console.log(error)
+            }
+        });
+
+    }
+
 
     render() {
         return (
@@ -17,22 +35,22 @@ class SignUp extends Component {
                     <h3>Register to TrackIt</h3>
                     <p>Create an account to get started.</p>
 
-                    <form className="m-t" role="form" action="#">
+                    <form className="m-t" role="form" action="#" onSubmit={this.signUp.bind(this)}>
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="First Name" required=""/>
+                            <input type="text" ref="firstName" className="form-control" placeholder="First Name" required=""/>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Last Name" required=""/>
+                            <input type="text" ref="lastName" className="form-control" placeholder="Last Name" required=""/>
                         </div>
                         <div className="form-group">
-                            <input type="email" className="form-control" placeholder="Email" required=""/>
+                            <input type="email" ref="email" className="form-control" placeholder="Email" required=""/>
                         </div>
 
                         <div className="form-group">
-                            <input type="password" className="form-control" placeholder="Password" required=""/>
+                            <input type="password" ref="password" className="form-control" placeholder="Password" required=""/>
                         </div>
                         <div className="form-group">
-                            <input type="password" className="form-control" placeholder="Verify Password" required=""/>
+                            <input type="password" ref="verifyPassword" className="form-control" placeholder="Verify Password" required=""/>
                         </div>
                         <button type="submit" className="btn btn-primary block full-width m-b">Create Account</button>
 
