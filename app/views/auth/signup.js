@@ -34,7 +34,6 @@ class SignUp extends Component {
 
                     <h3>Register to TrackIt</h3>
                     <p>Create an account to get started.</p>
-
                     <form className="m-t" role="form" action="#" onSubmit={this.signUp.bind(this)}>
                         <div className="form-group">
                             <input type="text" ref="firstName" className="form-control" placeholder="First Name" required=""/>

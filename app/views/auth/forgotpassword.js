@@ -33,7 +33,6 @@ class ForgotPassword extends Component {
 
                     </div>
 
-
                 </div>
                 <p className="m-t"><small>MH Software Solutions &copy; 2017</small></p>
             </div>
