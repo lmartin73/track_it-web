@@ -30,8 +30,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <div><Navigation /></div>
-                <div id="page-wrapper" className="gray-bg">
+                <div id="wrapper wrapper-content" className="gray-bg">
 
 
                     <div className="row wrapper border-bottom white-bg page-heading">
