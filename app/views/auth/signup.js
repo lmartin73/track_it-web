@@ -12,25 +12,17 @@ class SignUp extends Component {
     signUp(event){
         event.preventDefault();
 
-        if($("#form").valid()){
-            currentUserAccount.createUserAccountWithCompletion(this.refs.email.value,
-                                                        this.refs.password.value,this.refs.firstName.value,
-                                                        this.refs.lastName.value, (user, error)=>{
-                if(error == null){
-                    // The user was successfully authenticated.
-                    browserHistory.push("/user")
-                }else{
-                    // There was an error authenticating the user
-                    swal({
-                        title: error.code,
-                        text: error.message,
-                        type: "error"
-                    });
-                }
-            });
 
-        }
-
+        currentUser.createUserAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
+            if(error == null){
+                // The user was successfully authenticated.
+                console.log(user)
+                this.props.history.push("/auth/signup")
+            }else{
+                // There was an error authenticating the user
+                console.log(error)
+            }
+        });
 
 
 
@@ -92,7 +84,9 @@ class SignUp extends Component {
                         <button type="submit" className="btn btn-primary block full-width m-b">Create Account</button>
 
                         <p className="test-muted text-center"><small>Already have an account?</small></p>
-                        <Link to="/auth"><p className="btn btn-sm btn-white btn-block">Login</p></Link>
+
+                        <Link to="/auth/main"><p className="btn btn-sm btn-white btn-block">Login</p></Link>
+
 
                     </form>
 

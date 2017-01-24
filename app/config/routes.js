@@ -22,9 +22,9 @@ export default (
             <IndexRedirect to="auth" />
             <Route path="home" component={Main}>
                 <IndexRedirect to="join_organization" />
-                <Route path="main" component={LoginView}></Route>
+
                 <Route path="add_personal_information" component={AddPersonalInformationView}> </Route>
-                <Route path="forgotpassword" component={ForgotPasswordView}> </Route>
+
                 <Route path="profile" component={ProfileView}> </Route>
                 <Route path="editprofile" component={EditProfileView}> </Route>
                 <Route path="join_organization" component={NewOrg}> </Route>
@@ -32,9 +32,11 @@ export default (
 
             <Route path="auth" component={Blank}>
                 <IndexRedirect to="signup" />
+                <Route path="forgotpassword" component={ForgotPasswordView}> </Route>
                 <Route path="signup" component={SignUpView}> </Route>
-
+                <Route path="main" component={LoginView}></Route>
             </Route>
+
 
         </Route>
 

@@ -15,7 +15,10 @@ class Login extends Component {
         currentUserAccount.loginAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
             if(error == null){
                 // The user was successfully authenticated.
-                browserHistory.push("/user")
+
+                console.log(this.props)
+                this.props.history.push("/auth/signup")
+
             }else{
                 // There was an error authenticating the user
                 swal({
