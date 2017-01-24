@@ -15,7 +15,6 @@ import './../public/styles/style.css'
 
 
 
-
 ReactDOM.render(
 <Router history={browserHistory}>{routes}</Router>,
     document.getElementById('root')
