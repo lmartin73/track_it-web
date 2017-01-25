@@ -6,7 +6,7 @@ import { Link, Location, browserHistory } from 'react-router';
 import currentUser from '../../src/staticDefs'
 
 
-import '../../../node_modules/jquery.steps.min'
+import '../../../public/vendor/staps/jquery.steps.min.js'
 import '../../../public/vendor/validate/jquery.validate.min.js'
 import '../../../public/styles/plugins/steps/jquery.steps.css'
 
