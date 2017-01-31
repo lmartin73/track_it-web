@@ -2,37 +2,36 @@ import React, { Component } from 'react';
 import { Link, Location } from 'react-router';
 import {currentUserAccount, currentUserInfo} from '../../src/staticDefs'
 console.log(currentUserInfo)
+
 class Profile extends Component {
 
-    compenentDidMount(){
-        var firstname = "Jordan";
-        var lastname = "Hubbard";
-        var email = currentUserInfo.getEmail();
-        var phone_info = currentUserInfo.getPhone();
-        var address_info = currentUserInfo.getAddress();
-        console.log(address_info);
-        console.log(address_info);
-        if(currentUserInfo.getAddress() != null){
-            var street = address_info.street1 + " " + address_info.street2;
-            var city_state_zip = address_info.city + ", " + address_info.state + " " + address_info.zip;
-            var country = address_info.country;
-        }
-
+    constructor() {
+        super();
+        this.state = {
+            profileImageSrc: "img/profile_big.jpg",
+            firstname: "Jordan",
+            lastname: "Hubbard",
+            email: "jhubb95@yahoo.com",
+            phone: "6014544734",
+            phonetype: "mobile",
+            street1: "151 Yucca Dr.",
+            street2: "",
+            city: "Jackson",
+            state: "MS",
+            zip: "39211",
+            country: "United States",
+            addresstype: "home"
+        };
+        this.street = this.state.street1 + " " + this.state.street2;
+        this.city_state_zip = this.state.city + ", " + this.state.state + " " + this.state.zip;
     }
-
-
-
 
     render() {
         document.body.style.backgroundColor = "#2f4050";
 
-
-
         return (
             <div>
                 <div id="wrapper wrapper-content" className="gray-bg">
-
-
                     <div className="row wrapper border-bottom white-bg page-heading">
                         <div className="col-lg-10">
                             <h2>Profile</h2>
@@ -49,7 +48,6 @@ class Profile extends Component {
                             </ol>
                         </div>
                         <div className="col-lg-2">
-
                         </div>
                     </div>
                     <div className="wrapper wrapper-content">
@@ -61,29 +59,27 @@ class Profile extends Component {
                                     </div>
                                     <div>
                                         <div className="ibox-content no-padding border-left-right">
-                                            <img alt="image" className="img-responsive" src="/img/profile_big.jpg"/>
+
+                                            <img alt="image" className="img-responsive" src={this.state.profileImageSrc}/>
                                         </div>
                                         <div className="ibox-content profile-content">
-                                            <h4><strong>{currentUserInfo.getFirstName() + " " + currentUserInfo.getLastName() }</strong></h4>
-                                            <p>E:&nbsp;&nbsp;&nbsp;{email}</p>
-                                            if(currentUserInfo.getAddress()){
-                                                <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {address_info.street1}
-                                               <small className="pull-right text-success">{address_info.type}</small><br/>
-                                               &emsp;&nbsp;&nbsp;&nbsp;{city_state_zip}<br/>
-                                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{country}<br/></p>
+                                            <h4><strong>{this.state.firstname + " " + this.state.lastname}</strong></h4>
+                                            <p>E:&nbsp;&nbsp;&nbsp;{this.state.email}</p>
+                                            <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {this.street}
+                                                                                   <small className="pull-right text-success">{this.state.addresstype}</small><br/>
+                                                                                   &emsp;&nbsp;&nbsp;&nbsp;{this.city_state_zip}<br/>
+                                                                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.country}<br/></p>
+                                            <p>P:&nbsp;&nbsp;&nbsp;{this.state.phone}<small className="pull-right text-success">{this.state.phonetype}</small></p>
 
-                                            }
-
-                                            <p>P:&nbsp;&nbsp;&nbsp;{phone_info.number}<small className="pull-right text-success">{phone_info.type}</small></p>
                                             <div className="row m-t-lg">
                                             </div>
                                             <div className="user-button">
                                                 <div className="row">
                                                     <div className="col-md-6">
-                                                        <Link to="/editprofile" className="btn btn-primary btn-sm btn-block">Edit information</Link>
+                                                        <Link to="/home/editprofile" className="btn btn-primary btn-sm btn-block">Edit information</Link>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <button type="button" className="btn btn-default btn-sm btn-block"><i className="fa fa-envelope"></i> Send message</button>
+                                                        <button type="button" className="btn btn-default btn-sm btn-block"><i className="fa fa-envelope"></i>Send message</button>
                                                     </div>
                                                 </div>
                                             </div>

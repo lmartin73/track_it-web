@@ -20,7 +20,7 @@ export default (
         <Route path="/" component={Blank}>
             <IndexRedirect to="auth" />
             <Route path="home" component={Main}>
-                <IndexRedirect to="join_organization" />
+                <IndexRedirect to="profile" />
                 <Route path="profile" component={ProfileView}> </Route>
                 <Route path="editprofile" component={EditProfileView}> </Route>
             </Route>
