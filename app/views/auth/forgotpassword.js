@@ -2,10 +2,41 @@
  * Created by luthermartin-pers on 1/2/17.
  */
 import React, { Component } from 'react';
-import { Link, Location } from 'react-router';
+import { Link, Location, browserHistory } from 'react-router';
+import TiUserAccount from "./../../src/TIAuth/TiUserAccount"
+
+import "../../../public/styles/plugins/sweetalert/sweetalert.css"
+import "../../../public/vendor/plugins/sweetalert/sweetalert.min.js"
 
 class ForgotPassword extends Component {
 
+    forgotPassword(event){
+        event.preventDefault();
+        var userAccount = new TiUserAccount
+        userAccount.sendPasswordResetEmail(this.refs.email.value, (error)=>{
+            if(error != null){
+                //show error prompt
+                swal({
+                    title: error.code,
+                    text: error.message,
+                    type: "error"
+                });
+            }else{
+                swal({
+                    title: "Forgot Password",
+                    text: "A reset password link has been sent to your email."
+                },function () {
+                    browserHistory.push("/auth")
+                });
+
+            }
+
+        })
+        console.log("here")
+
+
+
+    }
     render(){
         return (
             <div className="passwordBox animated fadeInDown">
@@ -20,9 +51,9 @@ class ForgotPassword extends Component {
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <form className="m-t" role="form" action="#">
+                                    <form className="m-t" role="form" onSubmit={this.forgotPassword.bind(this)} >
                                         <div className="form-group">
-                                            <input type="email" className="form-control" placeholder="Email address" required=""/>
+                                            <input type="email" className="form-control" ref="email" placeholder="Email address" required=""/>
                                         </div>
 
                                         <button type="submit" className="btn btn-primary block full-width m-b">Send new password</button>

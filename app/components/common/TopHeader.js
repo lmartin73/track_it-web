@@ -1,6 +1,8 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { smoothlyMenu } from '../layouts/Helpers';
+import {currentUserAccount} from '../../src/staticDefs.js'
+import { Link, Location, browserHistory } from 'react-router';
 
 class TopHeader extends React.Component {
 
@@ -8,6 +10,15 @@ class TopHeader extends React.Component {
         e.preventDefault();
         $("body").toggleClass("mini-navbar");
         smoothlyMenu();
+    }
+
+    signOutUser(e){
+        e.preventDefault();
+        currentUserAccount.signOutUser((error)=>{
+            if(error == null){
+                browserHistory.push("/auth");
+            }
+        })
     }
 
     render() {
@@ -19,7 +30,7 @@ class TopHeader extends React.Component {
                     </div>
                     <ul className="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="#" onClick={this.signOutUser.bind(this)}>
                                 <i className="fa fa-sign-out"></i> Log out
                             </a>
                         </li>

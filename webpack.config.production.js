@@ -9,7 +9,10 @@ var config = {
         app: './app/index',
         vendor: devConfig.entry.vendor
     },
-    resolve: {alias: {}},
+    resolve: {root: [
+                path.resolve(./app),
+                path.resolve(./public)
+             ]},
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',

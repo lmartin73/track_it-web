@@ -3,22 +3,27 @@
  */
 import React, { Component } from 'react';
 import { Link, Location, browserHistory } from 'react-router';
-import currentUser from '../../src/staticDefs'
-
+import {currentUserAccount, currentUserInfo} from '../../src/staticDefs'
+import "../../../public/styles/plugins/sweetalert/sweetalert.css"
+import "../../../public/vendor/plugins/sweetalert/sweetalert.min.js"
 
 class Login extends Component {
 
     login(event){
         event.preventDefault();
 
-        currentUser.loginAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
+        currentUserAccount.loginAccountWithCompletion(this.refs.email.value,this.refs.password.value,(user, error)=>{
             if(error == null){
                 // The user was successfully authenticated.
-                console.log(this.props)
-                this.props.history.push("/signup")
+                browserHistory.push("/user")
             }else{
                 // There was an error authenticating the user
-                console.log(error)
+                swal({
+                    title: error.code,
+                    text: error.message,
+                    type: "error"
+                });
+
             }
         });
 
@@ -42,9 +47,9 @@ class Login extends Component {
                         </div>
                         <button type="submit" className="btn btn-primary block full-width m-b" >Login</button>
 
-                        <Link to="/forgotpassword"><small>Forgot Password</small></Link>
+                        <Link to="/auth/forgotpassword"><small>Forgot Password</small></Link>
                         <p className="text-muted text-center"><small>Do not have an account?</small></p>
-                        <Link to="/signup"><p className="btn btn-sm btn-white btn-block">Create an account</p></Link>
+                        <Link to="/auth/signup"><p className="btn btn-sm btn-white btn-block">Create an account</p></Link>
 
                     </form>
 

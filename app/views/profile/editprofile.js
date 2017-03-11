@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Location } from 'react-router';
 
-import TopHeader from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/TopHeader.js';
-import Navigation from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/Navigation.js';
-import Footer from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/Footer.js';
 
 class EditProfile extends Component {
 
@@ -42,9 +39,8 @@ class EditProfile extends Component {
 
         return (
             <div>
-                <div><Navigation /></div>
                 <div id="page-wrapper" className="gray-bg">
-                    <TopHeader />
+
                     <div className="row wrapper border-bottom white-bg page-heading">
                         <div className="col-lg-10">
                             <h2>Edit Profile</h2>
@@ -135,7 +131,7 @@ class EditProfile extends Component {
                             </div>
                         </div>
                     </div>
-                    <Footer />
+
                 </div>
             </div>
         )

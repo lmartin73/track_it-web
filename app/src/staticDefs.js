@@ -1,7 +1,11 @@
 /**
  * Created by luthermartin-pers on 1/5/17.
  */
-import TiUserAccount from './TIAuth/TiUserAccount'
+//import TiUserInfo from './TIAuth/TiUserInfo';
+
+import TiUserAccount from './TIAuth/TiUserAccount';
+import TiUserInfo from "./TIAuth/TiUserInfo.js"
+
 import * as firebase from 'firebase'
 // This variable has global scope and is used to manage the function of the currently authenticated user
 var config = {
@@ -11,8 +15,10 @@ var config = {
     storageBucket: "trackit-62807.appspot.com",
 };
 firebase.initializeApp(config);
-var currentUser = new TiUserAccount;
-var storageRef = firebase.storage().ref()
-export default currentUser;
-// export firebase;
-// export default storageRef;
+
+
+//export const dataRef = firebases
+export const storageRef = firebase.storage().ref();
+export const currentUserInfo = new TiUserInfo;
+export const currentUserAccount = new TiUserAccount;
+export const databaseRef = firebase.storage().ref();

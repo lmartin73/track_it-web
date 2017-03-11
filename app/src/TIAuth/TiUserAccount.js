@@ -2,64 +2,99 @@
  * Created by luthermartin-pers on 1/2/17.
  */
 import * as firebase from 'firebase'
+import {currentUserInfo} from "./../staticDefs"
+import TiUserInfo from "./TiUserInfo.js"
+import { Router, browserHistory } from 'react-router';
 
 
 
 
 class TiUserAccount{
 
-
-
-
     loginAccountWithCompletion = function (email, password, callback) {
-        firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
-            if(callback != null){
-                //TODO set the currentUser object.
-                callback(user,null)
 
-            }
 
-        }).catch(function (error) {
-            if(error){
-                if(callback != null){
-                    callback(null,error)
-                }
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 
-            }
-        })
+          // ...
+          if(error != null){
+            callback(null,error);
+          }
+
+        });
+
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            this.user = user;
+            currentUserInfo.setUser(user,(error)=>{
+
+                    callback(user,error);
+            })
+
+          } else {
+            // No user is signed in.
+            browserHistory.push('/auth')
+          }
+        }.bind(this));
+
     };
 
-    createUserAccountWithCompletion = function (email, password, callback) {
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
-            if(callback != null){
-                firebase.auth().onAuthStateChanged(function(user) {
-                    this.user = user;
-                    callback(user, null)
-                });
+    createUserAccountWithCompletion = function (email, password, firstName, lastName, callback) {
 
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                 if (user) {
+//                   this.user = user;
+                   currentUserInfo.setUser(user,(error)=>{
+                        if(error == null){
+                            currentUserInfo.setFirstName(firstName);
+                            currentUserInfo.setLastName(lastName);
+                            currentUserInfo.setProfileEmail(email);
+                        }
+                        callback(user,error);
+                   })
 
-
-            }
+                 } else {
+                   // No user is signed in.
+                    browserHistory.push('/auth')
+                 }
+            }.bind(this));
         }).catch(function (error) {
-            if(error){
-                if(callback != null){
-                    callback(null, error);
-                }
-            }
-        })
+           if(error){
+               if(callback != null){
+                   callback(null, error);
+               }
+           }
+       });
+
+
+
+
     };
 
     signOutUser = function (callback) {
         firebase.auth().signOut().then(function () {
             //signout successful
-            callback(null);
+            if(callback != null){
+                callback(null);
+            }
+
         }).then(function (error) {
-            callback(error);
+            if(callback != null){
+                callback(error);
+            }
+
         });
     }
 
-    sendPasswordResetEmailWithCompletion = function (email) {
-        firebase.auth().sendPasswordResetEmail(email)
+    sendPasswordResetEmail = function (email, callback) {
+       firebase.auth().sendPasswordResetEmail(email).then(function(){
+            //email sent
+            callback(null)
+       }, function(error){
+            //error sending email.
+            callback(error)
+       })
 
     }
 
@@ -78,4 +113,4 @@ class TiUserAccount{
 
 }
 
-export default TiUserAccount
+export default TiUserAccount;

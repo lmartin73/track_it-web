@@ -1,40 +1,36 @@
 import React, { Component } from 'react';
 import { Link, Location } from 'react-router';
-
-import TopHeader from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/TopHeader.js';
-import Navigation from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/Navigation.js';
-import Footer from '/Users/jordanhubbard/Documents/trackit_webapp/app/components/common/Footer.js';
-
+import {currentUserAccount, currentUserInfo} from '../../src/staticDefs'
+console.log(currentUserInfo)
 class Profile extends Component {
+
+    compenentDidMount(){
+        var firstname = "Jordan";
+        var lastname = "Hubbard";
+        var email = currentUserInfo.getEmail();
+        var phone_info = currentUserInfo.getPhone();
+        var address_info = currentUserInfo.getAddress();
+        console.log(address_info);
+        console.log(address_info);
+        if(currentUserInfo.getAddress() != null){
+            var street = address_info.street1 + " " + address_info.street2;
+            var city_state_zip = address_info.city + ", " + address_info.state + " " + address_info.zip;
+            var country = address_info.country;
+        }
+
+    }
+
+
+
+
     render() {
         document.body.style.backgroundColor = "#2f4050";
 
-        var firstname = "Jordan";
-        var lastname = "Hubbard";
-        var email = "jhubb95@yahoo.com";
-        var phone_info = {
-            number: "6014544734",
-            type: "mobile"
-        };
-        var address_info = {
-            street1: "151 Yucca Dr.",
-            street2: "",
-            city: "Jackson",
-            state: "MS",
-            zip: "39211",
-            country: "United States",
-            type: "home"
-        };
 
-        var street = address_info.street1 + " " + address_info.street2;
-        var city_state_zip = address_info.city + ", " + address_info.state + " " + address_info.zip;
-        var country = address_info.country;
 
         return (
-            <div>
-                <div><Navigation /></div>
-                <div id="page-wrapper" className="gray-bg">
-                    <TopHeader />
+                <div id="wrapper wrapper-content" className="gray-bg">
+
                     <div className="row wrapper border-bottom white-bg page-heading">
                         <div className="col-lg-10">
                             <h2>Profile</h2>
@@ -63,15 +59,19 @@ class Profile extends Component {
                                     </div>
                                     <div>
                                         <div className="ibox-content no-padding border-left-right">
-                                            <img alt="image" className="img-responsive" src="img/profile_big.jpg"/>
+                                            <img alt="image" className="img-responsive" src="/img/profile_big.jpg"/>
                                         </div>
                                         <div className="ibox-content profile-content">
-                                            <h4><strong>{firstname + " " + lastname}</strong></h4>
+                                            <h4><strong>{currentUserInfo.getFirstName() + " " + currentUserInfo.getLastName() }</strong></h4>
                                             <p>E:&nbsp;&nbsp;&nbsp;{email}</p>
-                                            <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {street}
-                                                                                   <small className="pull-right text-success">{address_info.type}</small><br/>
-                                                                                   &emsp;&nbsp;&nbsp;&nbsp;{city_state_zip}<br/>
-                                                                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{country}<br/></p>
+                                            if(currentUserInfo.getAddress()){
+                                                <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {address_info.street1}
+                                               <small className="pull-right text-success">{address_info.type}</small><br/>
+                                               &emsp;&nbsp;&nbsp;&nbsp;{city_state_zip}<br/>
+                                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{country}<br/></p>
+
+                                            }
+
                                             <p>P:&nbsp;&nbsp;&nbsp;{phone_info.number}<small className="pull-right text-success">{phone_info.type}</small></p>
                                             <div className="row m-t-lg">
                                             </div>
@@ -102,7 +102,7 @@ class Profile extends Component {
                                         <div className="feed-activity-list">
                                             <div className="feed-element">
                                                 <a href="#" className="pull-left">
-                                                    <img alt="image" className="img-circle" src="img/profile.jpg"/>
+                                                    <img alt="image" className="img-circle" src="/img/profile.jpg"/>
                                                 </a>
                                                 <div className="media-body">
                                                     <button type="button" className="btn btn-link btn-xs pull-right">
@@ -114,7 +114,7 @@ class Profile extends Component {
                                             </div>
                                             <div className="feed-element">
                                                 <a href="#" className="pull-left">
-                                                    <img alt="image" className="img-circle" src="img/profile.jpg"/>
+                                                    <img alt="image" className="img-circle" src="/img/profile.jpg"/>
                                                 </a>
                                                 <div className="media-body ">
                                                     <button type="button" className="btn btn-link btn-xs pull-right">
@@ -126,7 +126,7 @@ class Profile extends Component {
                                             </div>
                                             <div className="feed-element">
                                                 <a href="#" className="pull-left">
-                                                    <img alt="image" className="img-circle" src="img/profile.jpg"/>
+                                                    <img alt="image" className="img-circle" src="/img/profile.jpg"/>
                                                 </a>
                                                 <div className="media-body ">
                                                     <button type="button" className="btn btn-link btn-xs pull-right">
@@ -142,9 +142,9 @@ class Profile extends Component {
                             </div>
                         </div>
                     </div>
-                    <Footer />
+
                 </div>
-            </div>
+
         )
     }
 }

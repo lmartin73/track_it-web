@@ -3,7 +3,9 @@ import Progress from '../common/Progress';
 import Navigation from '../common/Navigation';
 import Footer from '../common/Footer';
 import TopHeader from '../common/TopHeader';
+import { Router, browserHistory } from 'react-router';
 import { correctHeight, detectBody } from './Helpers';
+import * as firebase from 'firebase'
 
 class Main extends React.Component {
 
@@ -27,6 +29,7 @@ class Main extends React.Component {
             </div>
         )
     }
+
 
     componentDidMount() {
 

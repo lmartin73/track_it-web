@@ -2,9 +2,9 @@
  * Created by luthermartin-pers on 1/6/17.
  */
 import * as firebase from 'firebase'
-import globalDefs from './src/staticDefs'
+import {storageRef, currentUserInfo, currentUserAccount, databaseRef } from './../staticDefs'
 
-class TiUserInfo {
+class TiUserInfo{
 
 //User information reatime database paths
 
@@ -16,38 +16,58 @@ class TiUserInfo {
     USERFIRSTNAMEPATH = "firstName"
     USERLASTNAMEPATH = "lastName";
 
-    USERDATACACHED = 7;
+
+
+
 
     //path to user profile photos
     PROFILEIMAGEPATH = "users/photos/"
     MAXPHOTOSIZE = 1 * 2048 * 2048
 
-    constructor(uid){
-        this.uid = uid;
+    constructor(){
+        this.uid = null;
         this.firstName = null;
         this.lastName = null;
         this.address = null;
-
         this.phone = null;
-
         this.email = null;
-
         this.photoUrl = null;
-        this.dataCached = 0;
 
-        this.userPhotoStorageRef = globalDefs.storageRef.child(this.PROFILEIMAGEPATH).child(this.uid);
+        this.userPhotoStorageRef = "";
+        this.userDataRef = "";
+        this.isInitialized = false;
 
-        this.userDataRef = firebase.database().ref().child(this.USERDATAPATH).child(this.uid);
-        if(uid != null){
+
+    }
+
+    setUser = function(user, callback){
+        this.uid = user.uid
+
+        var error = "Failed to set user";
+        if(this.uid != null){
+            this.userPhotoStorageRef = storageRef.child(this.PROFILEIMAGEPATH + "/" + user.uid);
+            this.userDataRef = firebase.database().ref(this.USERDATAPATH + "/" + user.uid);
             this.isInitialized = true;
-        }else {
-            this.isInitialized = false;
+            error = null;
+            this.downloadUserDataWithCompletion(()=>{
+                callback();
+            })
+
         }
+
+
+         callback(error);
 
     }
 
     hasDataCached = function (){
-        if(this.dataCached == this.USERDATACACHED){
+    console.log(this)
+        if(this.USERPHONEFLAG &&
+               this.USERADDRESSFLAG &&
+               this.USEREMAILFLAG &&
+               this.USERFIRSTNAMEFLAG &&
+               this.USERLASTNAMEFLAG){
+
             return true;
         }else{
             return false;
@@ -58,6 +78,11 @@ class TiUserInfo {
     setFirstName = function (name) {
         this.firstName = name;
         this.userDataRef.child(this.USERFIRSTNAMEPATH).set(name);
+    }
+
+    setProfileEmail = function (email) {
+        this.email = email;
+        this.userDataRef.child(this.USEREMAILPATH).set(email);
     }
 
     getFirstName = function () {
@@ -135,72 +160,106 @@ class TiUserInfo {
         return this.photoUrl;
     }
 
+    USERPHONEFLAG = false
+    USERADDRESSFLAG = false
+    USEREMAILFLAG = false
+    USERFIRSTNAMEFLAG = false
+    USERLASTNAMEFLAG = false
 
     // Call this routine to cache user data and setup listerns for data changes.
+    // This  data and storage ref must be setup prior to calling this method
     downloadUserDataWithCompletion = function (callback) {
 
-        //read first name;
-        this.userDataRef.child(this.USERFIRSTNAMEPATH).on('value', function (snapshot) {
-            this.dataCached += 1;
-            this.firstName = snapshot.val();
-            if(this.hasDataCached()){
-                callback();
+        if(this.isInitialized == true){
+            //read first name;
 
-            }
-        })
+            this.userDataRef.child(this.USERFIRSTNAMEPATH).on('value', function (snapshot) {
 
-        //read last name
-        this.userDataRef.child(this.USERLASTTNAMEPATH).on('value', function (snapshot) {
-            this.dataCached += 1;
-            this.lastName = snapshot.val();
-            if(this.hasDataCached()){
-                callback();
+                this.USERFIRSTNAMEFLAG = true;
 
-            }
-        })
+               this.firstName = snapshot.val();
 
-        //read phone number
-        this.userDataRef.child(this.USERPHONEPATH).on('value', function (snapshot) {
-            this.phone = {"phone": snapshot.val().phone, "type": snapshot.val().type};
-            this.dataCached += 1;
-            
-            if(this.hasDataCached()){
-                callback();
+                //perform callback once all user information is stored locally if the caller this routine wants a callback
+                if(this.hasDataCached()){
+                    if(callback != null){
+                        callback();
+                    }
+                }
+            }.bind(this))
 
-            }
-        })
+            //read last name
+            this.userDataRef.child(this.USERLASTNAMEPATH).on('value', function (snapshot) {
 
-        //read email
-        this.userDataRef.child(this.USEREMAILPATH).on('value', function (snapshot) {
-            this.email = {"email": snapshot.val().email, "type": snapshot.val().type};
+                this.USERLASTNAMEFLAG = true;
 
-            this.dataCached += 1;
-            if(this.hasDataCached()){
-                callback();
+                this.lastName = snapshot.val();
+                if(this.hasDataCached()){
+                    if(callback != null){
+                        callback();
+                    }
 
-            }
-        })
+                }
+            }.bind(this))
+
+            //read phone number
+            this.userDataRef.child(this.USERPHONEPATH).on('value', function (snapshot) {
 
 
-        // read address
-        this.userDataRef.child(this.USERADDRESSPATH).on('value', function (snapshot) {
-            this.address = {"street1": snapshot.val().street1,
-                            "street2": snapshot.val().street2,
-                            "city": snapshot.val().city,
-                            "state": snapshot.val().state,
-                            "zip": snapshot.val().zip,
-                            "country": snapshot.val().country };
+                this.phone = {"phone": snapshot.val().number,
+                               "type": snapshot.val().type};
 
-            this.dataCached += 1;
-            if(this.hasDataCached()){
-                callback();
+                this.USERPHONEFLAG = true;
 
-            }
-        })
-    }
+                if(this.hasDataCached()){
+                    if(callback != null){
+                        callback();
+                    }
+
+                }
+            }.bind(this))
+
+            //read email
+            this.userDataRef.child(this.USEREMAILPATH).on('value', function (snapshot) {
+              this.email = snapshot.val();
+
+                this.USEREMAILFLAG = true;
+                if(this.hasDataCached()){
+                    if(callback != null){
+                        callback();
+                    }
+
+                }
+            }.bind(this))
+
+
+            // read address
+            this.userDataRef.child(this.USERADDRESSPATH).on('value', function (snapshot) {
+
+
+                this.address = {"street1": snapshot.val().street1,
+                       "street2": snapshot.val().street2,
+                       "city": snapshot.val().city,
+                       "state": snapshot.val().state,
+                       "zip": snapshot.val().zip,
+                       "country": snapshot.val().country };
+
+
+                this.USERADDRESSFLAG = true;
+                if(this.hasDataCached()){
+                    if(callback != null){
+                        callback();
+                    }
+
+                }
+            }.bind(this))
+        }
+
+    };
 
 
 
 
 
 }
+
+export default TiUserInfo;
