@@ -8,8 +8,8 @@ import { correctHeight, detectBody } from './Helpers';
 import * as firebase from 'firebase'
 
 class Main extends React.Component {
-
     render() {
+        document.body.style.backgroundColor = "#2f4050";
         let wrapperClass = "gray-bg " + this.props.location.pathname;
         return (
             <div id="wrapper">

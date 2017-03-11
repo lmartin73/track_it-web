@@ -24,8 +24,6 @@ class SignUp extends Component {
             }
         });
 
-
-
     }
 
     componentDidMount(){
@@ -51,8 +49,8 @@ class SignUp extends Component {
 
             }
         })
-    }
 
+    }
 
     render() {
         return (
@@ -85,7 +83,7 @@ class SignUp extends Component {
 
                         <p className="test-muted text-center"><small>Already have an account?</small></p>
 
-                        <Link to="/auth/main"><p className="btn btn-sm btn-white btn-block">Login</p></Link>
+                        <Link to="/auth/login"><p className="btn btn-sm btn-white btn-block">Login</p></Link>
 
 
                     </form>

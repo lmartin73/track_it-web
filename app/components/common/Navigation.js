@@ -36,7 +36,8 @@ class Navigation extends Component {
                         <div className="logo-element">IN+</div>
                     </li>
                     <li >
-                        <Link to="/profile"><i className="fa fa-th-large"></i> <span className="nav-label">Profile</span></Link>
+                        <Link to="/home/profile"><i className="fa fa-user"></i> <span className="nav-label">Profile</span></Link>
+                        <Link to="/home/listorg"><i className="fa fa-users"></i> <span className="nav-label">Organizations</span></Link>
                     </li>
                 </ul>
             </div>
