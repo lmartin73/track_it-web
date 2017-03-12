@@ -32,6 +32,7 @@ export default (
                 <Route path="createorg" component={CreateOrganizationView}> </Route>
                 <Route path="editorg" component={EditOrganizationView}> </Route>
             </Route>
+
             <Route path="auth" component={Blank}>
                 <IndexRedirect to="login" />
                 <Route path="forgotpassword" component={ForgotPasswordView}> </Route>
@@ -39,6 +40,7 @@ export default (
                 <Route path="addinfo" component={AddInfoView}> </Route>
                 <Route path="login" component={LoginView}></Route>
             </Route>
+
         </Route>
     </Router>
 );

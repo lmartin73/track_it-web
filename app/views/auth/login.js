@@ -17,7 +17,7 @@ class Login extends Component {
                 // The user was successfully authenticated.
 
                 console.log(this.props)
-                this.props.history.push("/auth/signup")
+                browserHistory.push("/home")
 
             }else{
                 // There was an error authenticating the user

@@ -5,7 +5,7 @@ console.log(currentUserInfo)
 
 var org = {
     name: "Org Name",
-    imageSrc: "img/profile_big.jpg",
+    imageSrc: "/img/profile_big.jpg",
     id: "ID_number"
 }
 
@@ -16,7 +16,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            profileImageSrc: "img/profile_big.jpg",
+            profileImageSrc: "/img/profile_big.jpg",
             firstname: "Jordan",
             lastname: "Hubbard",
             email: "jhubb95@yahoo.com",
@@ -129,7 +129,7 @@ class Profile extends Component {
                         </div>
                     </div>
                 </div>
-
+            </div>
         )
     }
 

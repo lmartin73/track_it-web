@@ -32,7 +32,7 @@ class EditProfile extends Component {
     constructor() {
         super();
         this.state = {
-            profileImageSrc: "img/profile_big.jpg",
+            profileImageSrc: "/img/profile_big.jpg",
             firstname: "Jordan",
             lastname: "Hubbard",
             email: "jhubb95@yahoo.com",
@@ -57,7 +57,7 @@ class EditProfile extends Component {
                         <div className="col-lg-10">
                             <h2>Edit Profile</h2>
                             <ol className="breadcrumb">
-                                <li>
+                                <li >
                                     <a href="index.html">Home</a>
                                 </li>
                                 <li>
@@ -176,53 +176,54 @@ class EditProfile extends Component {
     locationSection() {
         return(
             <div>
-            <div className="form-group">
-                <div className="col-sm-10 col-sm-offset-1">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="input-group">
-                                <input id="street1" name="street1" type="text" className="form-control required" defaultValue={this.state.street1} placeholder="Street Address" onChange={this.infoChangedAction.bind(this)} />
-                                <div className="input-group-btn">
-                                    <select id="addresstype" className="form-control required chosen-select" defaultValue={this.state.addresstype} onChange={this.infoChangedAction.bind(this)}>
-                                        <option value="home">home</option>
-                                        <option value="work">work</option>
-                                        <option value="other">other</option>
-                                    </select>
+                <div className="form-group">
+                    <div className="col-sm-10 col-sm-offset-1">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="input-group">
+                                    <input id="street1" name="street1" type="text" className="form-control required" defaultValue={this.state.street1} placeholder="Street Address" onChange={this.infoChangedAction.bind(this)} />
+                                    <div className="input-group-btn">
+                                        <select id="addresstype" className="form-control required chosen-select" defaultValue={this.state.addresstype} onChange={this.infoChangedAction.bind(this)}>
+                                            <option value="home">home</option>
+                                            <option value="work">work</option>
+                                            <option value="other">other</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="form-group">
-                <div className="col-sm-10 col-sm-offset-1">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <input id="street2" name="street2" type="text" className="form-control" defaultValue={this.state.street2} placeholder="Apt/Suite #" onChange={this.infoChangedAction.bind(this)} /><br/>
+                <div className="form-group">
+                    <div className="col-sm-10 col-sm-offset-1">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <input id="street2" name="street2" type="text" className="form-control" defaultValue={this.state.street2} placeholder="Apt/Suite #" onChange={this.infoChangedAction.bind(this)} /><br/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="form-group">
-                <div className="col-sm-10 col-sm-offset-1">
-                    <div className="row">
-                        <div className="col-md-3">
-                            <input id="city" name="city" type="text" className="form-control required" defaultValue={this.state.city} placeholder="City" onChange={this.infoChangedAction.bind(this)}/><br/>
-                        </div>
-                        <div className="col-md-3">
-                            <input id="state" name="state" type="text" placeholder="State" className="form-control required" defaultValue={this.state.state} onChange={this.infoChangedAction.bind(this)} />
-                        </div>
-                        <div className="col-md-3">
-                            <input id="zip" name="zip" type="text" className="form-control required" defaultValue={this.state.zip} placeholder="Zip" onChange={this.infoChangedAction.bind(this)} /><br/>
-                        </div>
-                        <div className="col-md-3">
-                            <select id="country" name="country" data-placeholder="Country" className="form-control required" defaultValue={this.state.country} onChange={this.infoChangedAction.bind(this)}>
-                                {this.countrySelection()}
-                            </select>
+                <div className="form-group">
+                    <div className="col-sm-10 col-sm-offset-1">
+                        <div className="row">
+                            <div className="col-md-3">
+                                <input id="city" name="city" type="text" className="form-control required" defaultValue={this.state.city} placeholder="City" onChange={this.infoChangedAction.bind(this)}/><br/>
+                            </div>
+                            <div className="col-md-3">
+                                <input id="state" name="state" type="text" placeholder="State" className="form-control required" defaultValue={this.state.state} onChange={this.infoChangedAction.bind(this)} />
+                            </div>
+                            <div className="col-md-3">
+                                <input id="zip" name="zip" type="text" className="form-control required" defaultValue={this.state.zip} placeholder="Zip" onChange={this.infoChangedAction.bind(this)} /><br/>
+                            </div>
+                            <div className="col-md-3">
+                                <select id="country" name="country" data-placeholder="Country" className="form-control required" defaultValue={this.state.country} onChange={this.infoChangedAction.bind(this)}>
+                                    {this.countrySelection()}
+                                </select>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         )
     }
