@@ -35,7 +35,7 @@ class EditOrg extends Component {
     constructor() {
         super();
         this.state = {
-            orgLogoSrc: "img/organization_icon.png",
+            orgLogoSrc: "/img/organization_icon.png",
             name: "Hubbard",
             phone: "6014544734",
             phonetype: "mobile",

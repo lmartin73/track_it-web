@@ -166,7 +166,7 @@ class CreateOrg extends Component {
                     <div className="col-lg-4">
                         <div className="text-center">
                             <div style={{marginTop: 20}}>
-                                <img alt="image" id="profileImage" style={{objectFit: 'cover'}} className="img-circle img-lg" src="img/organization_icon.png"/><br/>
+                                <img alt="image" id="profileImage" style={{objectFit: 'cover'}} className="img-circle img-lg" src="/img/organization_icon.png"/><br/>
                                 <label className="btn btn-link">Select Photo
                                     <input type="file" id="profileImageInput" style={{display: 'none'}} />
                                 </label><br/><br/>
@@ -242,7 +242,7 @@ class CreateOrg extends Component {
                     <h4>ID: T34SQ12L</h4>
                 </div>
                 <div style={{marginTop: 20}}>
-                    <img alt="image" className="img-rounded img-lg" src="img/organization_icon.png"/>
+                    <img alt="image" className="img-rounded img-lg" src="/img/organization_icon.png"/>
                 </div>
                 <br/><h4>City, State</h4>
                 <p>Phone number</p><br/><br/>

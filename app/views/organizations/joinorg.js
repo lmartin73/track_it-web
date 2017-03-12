@@ -121,9 +121,18 @@ class JoinOrg extends Component {
                                         <div className="ibox-content">
                                             <br/>
                                             <form id="form" ref="form" action="#" className="wizard-big">
-                                                {this.searchField()}
-                                                {this.verificationField()}
-                                                {this.finishField()}
+                                                <h1>Search</h1>
+                                                <fieldset>
+                                                    {this.searchField()}
+                                                </fieldset>
+                                                <h1>Verify</h1>
+                                                <fieldset>
+                                                    {this.verificationField()}
+                                                </fieldset>
+                                                <h1>Finish</h1>
+                                                <fieldset>
+                                                    {this.finishField()}
+                                                </fieldset>
                                             </form>
                                         </div>
                                     </div>
@@ -138,46 +147,36 @@ class JoinOrg extends Component {
 
     searchField() {
         return(
-            <div>
-                <h1>Search</h1>
-                <fieldset>
-                    <div className="row">
-                        <div className="text-center">
-                            <div style={{marginTop: 20}}>
-                                <img alt="image" className="img-circle img-lg" src="img/organization_icon.png"/>
-                            </div>
-                            <div>
-                                <br/><br/><p>Enter the organization-id number you would like to join.</p><br/>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-lg-offset-3 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-                            <div className="form-group">
-                                <input id="ID" name="ID" type="text" className="form-control required" placeholder="ID Number" />
-                            </div>
-                        </div>
+            <div className="row">
+                <div className="text-center">
+                    <div style={{marginTop: 20}}>
+                        <img alt="image" className="img-circle img-lg" src="/img/organization_icon.png"/>
                     </div>
-                </fieldset>
+                    <div>
+                        <br/><br/><p>Enter the organization-id number you would like to join.</p><br/>
+                    </div>
+                </div>
+                <div className="col-lg-6 col-lg-offset-3 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div className="form-group">
+                        <input id="ID" name="ID" type="text" className="form-control required" placeholder="ID Number" />
+                    </div>
+                </div>
             </div>
         )
     }
 
     verificationField() {
         return(
-            <div>
-                <h1>Verify</h1>
-                <fieldset>
-                    <div className="text-center">
-                        <div>
-                            <h1 align="center" className="text-center">Organization Name</h1>
-                        </div>
-                        <div style={{marginTop: 20}}>
-                            <img alt="image" className="img-rounded img-lg" src="img/organization_icon.png"/>
-                        </div>
-                        <br/><h4>City, State</h4>
-                        <p>Number of Members</p><br/><br/>
-                        <small>Submit request.</small>
-                    </div>
-                </fieldset>
+            <div className="text-center">
+                <div>
+                    <h1 align="center" className="text-center">Organization Name</h1>
+                </div>
+                <div style={{marginTop: 20}}>
+                    <img alt="image" className="img-rounded img-lg" src="/img/organization_icon.png"/>
+                </div>
+                <br/><h4>City, State</h4>
+                <p>Number of Members</p><br/><br/>
+                <small>Submit request.</small>
             </div>
         )
     }
@@ -185,17 +184,12 @@ class JoinOrg extends Component {
     finishField() {
         this.joinOrganizationAction();
         return(
-            <div>
-                <h1>Finish</h1>
-                <fieldset>
-                    <div className="text-center">
-                        <div>
-                            <h1 align="center" className="text-center">Request has been sent!</h1><br/><br/>
-                        </div>
-                        <p>The owner of Organization Name has been notified of your request.</p><br/><br/><br/>
-                        <Link to="/home/listorg" className="btn btn-link text-info btn-md">Click to go to Organizations</Link>
-                    </div>
-                </fieldset>
+            <div className="text-center">
+                <div>
+                    <h1 align="center" className="text-center">Request has been sent!</h1><br/><br/>
+                </div>
+                <p>The owner of Organization Name has been notified of your request.</p><br/><br/><br/>
+                <Link to="/home/listorg" className="btn btn-link text-info btn-md">Click to go to Organizations</Link>
             </div>
         )
     }
