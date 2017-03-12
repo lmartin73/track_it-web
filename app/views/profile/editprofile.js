@@ -231,7 +231,7 @@ class EditProfile extends Component {
     countrySelection() {
         return countries.map(function(country) {
             return(
-                <option value={country}>{country}</option>
+                <option key={country.code} value={country.name}>{country.name}</option>
             )
         });
     }

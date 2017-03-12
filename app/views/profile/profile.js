@@ -3,13 +3,25 @@ import { Link, Location } from 'react-router';
 import {currentUserAccount, currentUserInfo} from '../../src/staticDefs'
 console.log(currentUserInfo)
 
-var org = {
+var org1 = {
     name: "Org Name",
     imageSrc: "/img/profile_big.jpg",
-    id: "ID_number"
+    id: "1"
 }
 
-var orgList = [org, org, org, org, org]
+var org2 = {
+    name: "Org Name",
+    imageSrc: "/img/profile_big.jpg",
+    id: "2"
+}
+
+var org3 = {
+    name: "Org Name",
+    imageSrc: "/img/profile_big.jpg",
+    id: "3"
+}
+
+var orgList = [org1, org2, org3]
 
 class Profile extends Component {
 
@@ -146,7 +158,7 @@ class Profile extends Component {
     organizationList() {
         return orgList.map(function(organization) {
             return(
-                <div className="feed-element">
+                <div className="feed-element" key={organization.id}>
                     <a href="#" className="pull-left">
                         <img alt="image" className="img-circle" src={organization.imageSrc}/>
                     </a>
