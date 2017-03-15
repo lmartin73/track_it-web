@@ -13,7 +13,7 @@ var org = {
     id: "ID_number",
     owner: "Jordan Hubbard"
 }
-var orgList = [org, org, org, org, org]
+var orgList = [org]
 
 class ListOrg extends Component {
 
@@ -104,7 +104,7 @@ class ListOrg extends Component {
     organizationList() {
         return orgList.map(function(organization) {
             return (
-                <tr>
+                <tr key={organization.id}>
                     <td><img alt="image" className="img-circle img-md" src={organization.imageSrc}/></td>
                     <td><h5><Link>{organization.name}</Link></h5></td>
                     <td><h5>{organization.id}</h5></td>

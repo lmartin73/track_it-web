@@ -74,6 +74,9 @@ class TiUserInfo{
         }
     }
 
+    getUID = function () {
+        return this.uid;
+    }
     
     setFirstName = function (name) {
         this.firstName = name;

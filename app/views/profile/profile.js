@@ -3,6 +3,7 @@ import { Link, Location } from 'react-router';
 import {currentUserAccount, currentUserInfo} from '../../src/staticDefs'
 console.log(currentUserInfo)
 
+// ------- Temporary Code ----------------
 var org1 = {
     name: "Org Name",
     imageSrc: "/img/profile_big.jpg",
@@ -22,28 +23,23 @@ var org3 = {
 }
 
 var orgList = [org1, org2, org3]
+// -----------------------------------------
+
 
 class Profile extends Component {
 
     constructor() {
         super();
         this.state = {
-            profileImageSrc: "/img/profile_big.jpg",
-            firstname: "Jordan",
-            lastname: "Hubbard",
-            email: "jhubb95@yahoo.com",
-            phone: "6014544734",
-            phonetype: "mobile",
-            street1: "151 Yucca Dr.",
-            street2: "",
-            city: "Jackson",
-            state: "MS",
-            zip: "39211",
-            country: "United States",
-            addresstype: "home"
+            photo: currentUserInfo.getPhoto(),
+            firstname: currentUserInfo.getFirstName(),
+            lastname: currentUserInfo.getLastName(),
+            email: currentUserInfo.getEmail(),
+            phone: currentUserInfo.getPhone(),
+            address: currentUserInfo.getAddress(),
         };
-        this.street = this.state.street1 + " " + this.state.street2;
-        this.city_state_zip = this.state.city + ", " + this.state.state + " " + this.state.zip;
+        this.street = this.state.address.street1 + " " + this.state.address.street2;
+        this.city_state_zip = this.state.address.city + ", " + this.state.address.state + " " + this.state.address.zip;
     }
 
     render() {
@@ -84,7 +80,6 @@ class Profile extends Component {
                                     <div className="ibox-title">
                                         <h5>Organizations</h5>
                                         <div className="ibox-tools">
-
                                             <Link to="/home/createorg" className="btn btn-link btn-xs text-info">Create</Link>
                                             <Link to="/home/joinorg" className="btn btn-link btn-xs text-info">Join&nbsp;&nbsp;</Link>
                                             <a className="collapse-link">
@@ -118,25 +113,26 @@ class Profile extends Component {
         return (
             <div>
                 <div className="ibox-content no-padding border-left-right">
-                    <img alt="image" className="img-responsive" src={this.state.profileImageSrc}/>
+                    <img alt="image" className="img-responsive" src={this.state.photo}/>
                 </div>
                 <div className="ibox-content profile-content">
                     <h4><strong>{this.state.firstname + " " + this.state.lastname}</strong></h4>
                     <p>E:&nbsp;&nbsp;&nbsp;{this.state.email}</p>
-                    <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {this.street}
-                                                           <small className="pull-right text-success">{this.state.addresstype}</small><br/>
-                                                           &emsp;&nbsp;&nbsp;&nbsp;{this.city_state_zip}<br/>
-                                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.country}<br/></p>
-                    <p>P:&nbsp;&nbsp;&nbsp;{this.state.phone}<small className="pull-right text-success">{this.state.phonetype}</small></p>
-                    <div className="row m-t-lg">
-                    </div>
+                    <p><i className="fa fa-map-marker"></i>&nbsp;&nbsp;&nbsp; {this.street}<br/>
+                        &emsp;&nbsp;&nbsp;&nbsp;{this.city_state_zip}<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.address.country}<br/></p>
+                    <p>P:&nbsp;&nbsp;&nbsp;{this.state.phone}
+                        <small className="pull-right text-success">{this.state.phone.type}</small></p>
+                    <div className="row m-t-lg"></div>
                     <div className="user-button">
                         <div className="row">
                             <div className="col-md-6">
-                                <Link to="/home/editprofile" className="btn btn-primary btn-sm btn-block">Edit information</Link>
+                                <button type="button" onClick={this.editInformationAction()} className="btn btn-primary btn-sm btn-block">Edit information</button>
                             </div>
                             <div className="col-md-6">
-                                <button type="button" className="btn btn-default btn-sm btn-block"><i className="fa fa-envelope"></i>Send message</button>
+                                <button type="button" className="btn btn-default btn-sm btn-block">
+                                    <i className="fa fa-envelope"></i>Message
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -171,6 +167,14 @@ class Profile extends Component {
                     </div>
                 </div>
             )
+        });
+    }
+
+    editInformationAction() {
+        var uid = currentUserInfo.getUID();
+        browserHistory.push({
+            pathname: "/home/editprofile",
+            uid: uid
         });
     }
 }
